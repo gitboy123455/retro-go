@@ -30,6 +30,10 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         load: true
+        # Add this line to force the Dockerfile to target the ESP32-S3 configuration
+        build-args: |
+          TARGET=esp32-s3-devkit
+
 
     - name: Extract binaries from docker image
       run: |
