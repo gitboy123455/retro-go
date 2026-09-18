@@ -39,5 +39,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: binaries
-        path: build/*.fw
-              build/*.img
+        path: |
+          build/*.fw
+          build/*.img
