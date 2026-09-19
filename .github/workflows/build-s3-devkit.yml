@@ -1,0 +1,51 @@
+name: Build retro-go ESP32-S3-DevKit
+
+# Builds the esp32s3-devkit-c target exactly as committed in your repo.
+# Actions tab -> this workflow -> "Run workflow" -> Run.
+# Download the artifact "retro-go-esp32-s3-devkit" and flash the .img at 0x0.
+
+on:
+  workflow_dispatch:
+    inputs:
+      idf_version:
+        description: 'ESP-IDF version (try release-v5.3 if v5.1 fails)'
+        default: 'release-v5.1'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: espressif/idf:${{ inputs.idf_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: git config --global --add safe.directory '*'
+
+      - name: Build
+        run: |
+          . "$IDF_PATH/export.sh"
+          python3 rg_tool.py --target esp32s3-devkit-c build-img
+
+      - name: Package
+        run: |
+          img=$(find . -maxdepth 2 -name '*.img' | head -n1)
+          [ -n "$img" ] || { echo "no .img was produced"; exit 1; }
+          mkdir -p out
+          cp "$img" out/retro-go-esp32-s3-devkit.img
+          ls -lh out/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-go-esp32-s3-devkit
+          path: out/retro-go-esp32-s3-devkit.img
+          if-no-files-found: error
+
+      - name: Save build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            **/build/log/**
+            **/sdkconfig
+          if-no-files-found: ignore
