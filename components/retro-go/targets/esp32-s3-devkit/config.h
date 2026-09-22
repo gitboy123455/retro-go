@@ -44,13 +44,14 @@
     ILI9341_CMD(0xE1, 0x00, 0x0E, 0x14, 0x03, 0x11, 0x07, 0x31, 0xC1, 0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F);
 
 
-// Input
-// Input
+
+#define RG_GAMEPAD_ADC_MAP {\
+    {RG_KEY_UP,    ADC_UNIT_1, ADC_CHANNEL_5, ADC_ATTEN_DB_11, 3996, 4096},\
+    {RG_KEY_RIGHT, ADC_UNIT_1, ADC_CHANNEL_6, ADC_ATTEN_DB_11, 3996, 4096},\
+    {RG_KEY_DOWN,  ADC_UNIT_1, ADC_CHANNEL_5, ADC_ATTEN_DB_11, 0, 100},\
+    {RG_KEY_LEFT,  ADC_UNIT_1, ADC_CHANNEL_6, ADC_ATTEN_DB_11, 0, 100},\
+}
 #define RG_GAMEPAD_GPIO_MAP {\
-    {RG_KEY_UP,     .num = GPIO_NUM_1,  .pullup = 1, .level = 0},\
-    {RG_KEY_DOWN,   .num = GPIO_NUM_21, .pullup = 1, .level = 0},\
-    {RG_KEY_LEFT,   .num = GPIO_NUM_6,  .pullup = 1, .level = 0},\
-    {RG_KEY_RIGHT,  .num = GPIO_NUM_7,  .pullup = 1, .level = 0},\
     {RG_KEY_SELECT, .num = GPIO_NUM_16, .pullup = 1, .level = 0},\
     {RG_KEY_START,  .num = GPIO_NUM_17, .pullup = 1, .level = 0},\
     {RG_KEY_MENU,   .num = GPIO_NUM_18, .pullup = 1, .level = 0},\
@@ -58,6 +59,9 @@
     {RG_KEY_A,      .num = GPIO_NUM_15, .pullup = 1, .level = 0},\
     {RG_KEY_B,      .num = GPIO_NUM_5,  .pullup = 1, .level = 0},\
 }
+// Input
+// Input
+
 
 // Battery
 #define RG_BATTERY_DRIVER           1
