@@ -88,4 +88,4 @@
 #define RG_GPIO_SND_I2S_BCK         41
 #define RG_GPIO_SND_I2S_WS          42
 #define RG_GPIO_SND_I2S_DATA        40
-#define RG_GPIO_SND_AMP_ENABLE      18
+// #define RG_GPIO_SND_AMP_ENABLE      18
